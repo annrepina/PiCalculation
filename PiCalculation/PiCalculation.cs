@@ -6,16 +6,35 @@ using System.Threading.Tasks;
 
 namespace PiCalculationTask
 {
+    /// <summary>
+    /// Класс, который отвечает за рассчет числа Пи
+    /// </summary>
     public class PiCalculation
     {
+        /// <summary>
+        /// Максимальный радиус круга
+        /// </summary>
         private static int MaxCircleRadius;
 
-        private const int CirclePartOfCalculation = 4;
+        /// <summary>
+        /// Часть круга для расчета числа Пи
+        /// </summary>
+        private const int PartOfCircleForCalculation = 4;
 
+        /// <summary>
+        /// Массив точек
+        /// </summary>
         private DoublePoint[] _points;
 
+        /// <summary>
+        /// Максимальное количество точек для расчета
+        /// </summary>
         public int MaxNumberOfPoints { get; set; }
 
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
+        /// <param name="maxNumberOfPoints">Максимальное количество точек</param>
         public PiCalculation(int maxNumberOfPoints)
         {
             MaxCircleRadius = 100000;
@@ -23,7 +42,10 @@ namespace PiCalculationTask
             _points = new DoublePoint[MaxNumberOfPoints];
         }
 
-        public void GetPointsRandomly()
+        /// <summary>
+        /// Создать точки рандомно
+        /// </summary>
+        public void CreatePointsRandomly()
         {
             Random random = new Random();
 
@@ -55,9 +77,14 @@ namespace PiCalculationTask
             }
         }
 
+        /// <summary>
+        /// Расчитать число Пи
+        /// </summary>
+        /// <param name="numberOfPointsInCircle">Количествто точек в кругу</param>
+        /// <returns></returns>
         public double CalculatePiNumber(int numberOfPointsInCircle)
         {
-            double pi = (double)numberOfPointsInCircle / MaxNumberOfPoints * CirclePartOfCalculation;
+            double pi = (double)numberOfPointsInCircle / MaxNumberOfPoints * PartOfCircleForCalculation;
 
             return pi;
         }     

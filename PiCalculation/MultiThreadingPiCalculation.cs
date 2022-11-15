@@ -7,16 +7,28 @@ using System.Threading.Tasks;
 namespace PiCalculationTask
 {
     /// <summary>
-    /// Класс, который отвечает за расчет числа Пи
+    /// Класс, который отвечает за расчет числа Пи многопоточно
     /// </summary>
     public class MultiThreadingPiCalculation
     {
-        public PiCalculation PiCalculation { get; set; }    
-
+        /// <summary>
+        /// Количество потоков
+        /// </summary>
         private static int NumberOfThreads;
 
+        /// <summary>
+        /// Свойство - объект класса, который отвечает за расчет числа Пи
+        /// </summary>
+        public PiCalculation PiCalculation { get; set; }    
+
+        /// <summary>
+        /// Массив потоков
+        /// </summary>
         private Thread[] _threads;
 
+        /// <summary>
+        /// Максимальное количество точек для расчета
+        /// </summary>
         public int MaxNumberOfPoints { get; set; }
 
         /// <summary>
@@ -29,6 +41,10 @@ namespace PiCalculationTask
         /// </summary>
         private int[] _numbersOfPointsInCircle;
 
+        /// <summary>
+        /// Конструктор с параметрами
+        /// </summary>
+        /// <param name="piCalculation">Объект класса, который отвечает за расчет числа Пи</param>
         public MultiThreadingPiCalculation(PiCalculation piCalculation)
         {
             if (piCalculation != null)
@@ -66,6 +82,10 @@ namespace PiCalculationTask
             }
         }
 
+        /// <summary>
+        /// Расчитать при использовании многопоточности точки, которые попадают в окружность 
+        /// </summary>
+        /// <returns></returns>
         public int CalculatePointsInCircleMultiThreaded()
         {
             for (int i = 0; i < NumberOfThreads; i++)
@@ -74,7 +94,6 @@ namespace PiCalculationTask
                 Thread thread = new Thread(() => { PiCalculation.CalculatePointsInCircle(ref _numbersOfPointsInCircle[indexForAvoidingClosure], _startEndIndexes[indexForAvoidingClosure], _startEndIndexes[indexForAvoidingClosure + 1]); });
 
                 _threads[i] = thread;
-
                 _threads[i].Start();
             }
 
@@ -88,6 +107,10 @@ namespace PiCalculationTask
             return total;
         }
 
+        /// <summary>
+        /// Запустить рассчет точек в круге
+        /// </summary>
+        /// <returns></returns>
         public int LaunchPointsInCircleCalculation()
         {
             FillStartEndIndexes();
